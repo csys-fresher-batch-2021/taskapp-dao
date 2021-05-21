@@ -13,3 +13,24 @@ insert into products ( name) values ( 'Tomoto');
 insert into products ( name) values ( 'Onion');
 ```
 
+##### Task 2: Use Java, to add products
+
+##### Task 2.1: Get the Database Connection Details
+* database - postgres database
+* machine - localhost, port: 5432
+* username - postgres
+* password - postgres
+* database name - shoppingapp_db
+
+#### Task 2.2:  Create a Maven Project 
+
+* groupId : in.naresh
+* artifactId : shoppingapp-dao
+* pom.xml
+```
+<groupId>in.naresh</groupId>
+  <artifactId>shoppingapp-dao</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+```
+
+```
