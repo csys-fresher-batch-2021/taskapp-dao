@@ -120,7 +120,7 @@ public class ConnectionUtil {
 
 ```
 
-```
+```java
 package in.naresh.util;
 
 import java.sql.Connection;
@@ -139,4 +139,102 @@ public class ConnectionUtilTest {
 * Note
 ```
 org.postgresql.jdbc.PgConnection@48e4374
+```
+
+
+##### Task 4: Write Java code to Add Product and save it in database
+* ProductDAO
+```
+package in.naresh.dao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+
+import in.naresh.util.ConnectionUtil;
+
+public class ProductDAO {
+
+	public static void main(String[] args) throws Exception {
+
+		// I want to add product name in database
+		
+		String productName = "Potato";
+		
+		
+		//Step 1: Get connection
+		Connection connection = ConnectionUtil.getConnection();
+		
+		
+		//Step 2: Prepare data
+		String sql = "insert into products(name) values ( ? )";
+		PreparedStatement pst = connection.prepareStatement(sql);
+		pst.setString(1, productName);
+		
+		//Step 3: Execute Query ( insert/update/delete - call executeUpdate() )
+		int rows = pst.executeUpdate(); 
+		
+		System.out.println("No of rows inserted :" + rows);
+		
+		
+	}
+
+}
+
+```
+
+##### Task 4.2: Can you close the connection resources
+
+```java
+package in.naresh.dao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
+import in.naresh.util.ConnectionUtil;
+
+public class ProductDAO {
+
+	public static void main(String[] args) throws Exception {
+
+		// I want to add product name in database
+
+		String productName = "Potato";
+
+		// Step 1: Get connection
+		Connection connection = null;
+		PreparedStatement pst = null;
+		try {
+			connection = ConnectionUtil.getConnection();
+
+			// Step 2: Prepare data
+			String sql = "insert into products(name values ( ? )";
+			pst = connection.prepareStatement(sql);
+			pst.setString(1, productName);
+
+			// Step 3: Execute Query ( insert/update/delete - call executeUpdate() )
+			int rows = pst.executeUpdate();
+
+			System.out.println("No of rows inserted :" + rows);
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new Exception("Unable to add product");
+		} finally {
+
+			// Null Check - to avoid Null Pointer Exception
+			if (pst != null) {
+				pst.close();
+			}
+			if (connection != null) {
+				connection.close();
+			}
+		}
+
+	}
+
+}
+```
+
+
 ```
