@@ -517,3 +517,35 @@ public class ProductDAO2 {
 }
 
 ```
+
+* Store the data in model
+
+```java
+while(rs.next()) {
+			int id = rs.getInt("id");
+			String name = rs.getString("name");
+			int price = rs.getInt("price");
+			
+			Product product = new Product(id,name,price);
+			System.out.println(product);
+		}
+```
+
+* Store the result in ArrayList
+
+
+```java
+List<Product> productList = new ArrayList<Product>();
+
+while(rs.next()) {
+			int id = rs.getInt("id");
+			String name = rs.getString("name");
+			int price = rs.getInt("price");
+			
+			//Store the data in model
+			Product product = new Product(id,name,price);
+			//Store all products in list
+			productList.add(product);
+			
+		}
+```
