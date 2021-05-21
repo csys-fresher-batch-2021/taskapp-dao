@@ -184,6 +184,8 @@ public class ProductDAO {
 
 ##### Task 4.2: Can you close the connection resources
 
+
+
 ```java
 package in.naresh.dao;
 
@@ -234,6 +236,18 @@ public class ProductDAO {
 	}
 
 }
+```
+
+```java
+public static void close(PreparedStatement pst, Connection con) throws SQLException {
+		// Null Check - to avoid Null Pointer Exception
+		if (pst != null) {
+			pst.close();
+		}
+		if (con != null) {
+			con.close();
+		}
+	}
 ```
 
 
@@ -294,3 +308,73 @@ public class ProductDAO {
 }
 ```
 
+##### Can you separate business logic and test method
+```
+package in.naresh.dao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
+import in.naresh.util.ConnectionUtil;
+
+public class ProductDAO {
+
+	/**
+	 * Add Product 
+	 * @param productName
+	 * @param price
+	 * @throws Exception
+	 * @throws SQLException
+	 */
+	public static void save(String productName, int price) throws Exception, SQLException {
+		// Step 1: Get connection
+		Connection con = null;
+		PreparedStatement pst = null;
+		try {
+			con = ConnectionUtil.getConnection();
+
+			// Step 2: Prepare data
+			String sql = "insert into products(name, price) values ( ?,? )";
+			pst = con.prepareStatement(sql);
+			pst.setString(1, productName);
+			pst.setInt(2, price);
+
+			// Step 3: Execute Query ( insert/update/delete - call executeUpdate() )
+			int rows = pst.executeUpdate();
+			boolean inserted = rows == 1 ? true : false;
+
+			System.out.println("No of rows inserted :" + rows);
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new Exception("Unable to add product");
+		} finally {
+
+			ConnectionUtil.close(pst, con);
+		}
+	}
+
+}
+
+```
+* Test Class
+```java
+package in.naresh.dao;
+
+public class ProductDAOTest {
+
+	public static void main(String[] args) throws Exception {
+
+		// I want to add product name in database
+
+		String productName = "Chilli";
+		int price = 10;
+
+		ProductDAO.save(productName, price);
+
+	}
+
+}
+
+```
