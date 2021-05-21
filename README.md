@@ -239,7 +239,7 @@ public class ProductDAO {
 ```
 
 ```java
-public static void close(PreparedStatement pst, Connection con) throws SQLException {
+public static void close(PreparedStatement pst, Connection con) throws Exception {
 		// Null Check - to avoid Null Pointer Exception
 		if (pst != null) {
 			pst.close();
@@ -327,7 +327,7 @@ public class ProductDAO {
 	 * @throws Exception
 	 * @throws SQLException
 	 */
-	public static void save(String productName, int price) throws Exception, SQLException {
+	public static void save(String productName, int price) throws Exception {
 		// Step 1: Get connection
 		Connection con = null;
 		PreparedStatement pst = null;
@@ -400,7 +400,7 @@ public class ProductDAO {
 	 * @throws Exception
 	 * @throws SQLException
 	 */
-	//public static void save(String productName, int price) throws Exception, SQLException {
+	//public static void save(String productName, int price) throws Exception {
 	public static void save(Product product) throws Exception, SQLException {
 		// Step 1: Get connection
 		Connection con = null;
@@ -431,7 +431,7 @@ public class ProductDAO {
 	}
 	
 
-	public static void save(List<Product> products) throws Exception, SQLException {
+	public static void save(List<Product> products) throws Exception {
 		for (Product product : products) {
 			ProductDAO.save(product);	
 		}
