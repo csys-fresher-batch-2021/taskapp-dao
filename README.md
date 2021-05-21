@@ -33,4 +33,15 @@ insert into products ( name) values ( 'Onion');
   <version>0.0.1-SNAPSHOT</version>
 ```
 
+##### Task 2.3: Add postgres dependency
+* https://mvnrepository.com/artifact/org.postgresql/postgresql/42.2.20
+
+```
+<dependency>
+    <groupId>org.postgresql</groupId>
+    <artifactId>postgresql</artifactId>
+    <version>42.2.20</version>
+</dependency>
+```
+
 ```
