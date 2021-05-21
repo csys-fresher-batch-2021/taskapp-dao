@@ -135,3 +135,8 @@ public class ConnectionUtilTest {
 
 }
 ```
+
+* Note
+```
+org.postgresql.jdbc.PgConnection@48e4374
+```
