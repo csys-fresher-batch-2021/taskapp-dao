@@ -474,3 +474,46 @@ public class ProductDAOTest {
 }
 ```
 
+##### Get all product details
+
+```java
+package in.naresh.dao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import in.naresh.util.ConnectionUtil;
+
+public class ProductDAO2 {
+
+
+	public static void main(String[] args) throws Exception {
+		
+		
+		
+		//Step 1: Get the connection		
+		Connection con = ConnectionUtil.getConnection();
+		
+		//Step 2: Query
+		String sql = "select id,name,price from products";
+		PreparedStatement pst = con.prepareStatement(sql);
+		//Step 3: execute query
+		
+		ResultSet rs = pst.executeQuery();
+		while(rs.next()) {
+			int id = rs.getInt("id");
+			String name = rs.getString("name");
+			int price = rs.getInt("price");
+			System.out.println(id + "-" + name + "-" + price);
+		}
+		
+		ConnectionUtil.close(rs, pst,con);
+		
+	}
+
+
+}
+
+```
